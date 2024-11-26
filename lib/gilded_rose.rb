@@ -1,55 +1,41 @@
 class GildedRose
-  attr_reader :name, :days_remaining, :quality
+  require_relative 'aged_brie'
+  require_relative 'backstage_pass'
+  require_relative 'item'
+  require_relative 'sulfur'
+
+  attr_accessor :item
 
   def initialize(name:, days_remaining:, quality:)
-    @name = name
-    @days_remaining = days_remaining
-    @quality = quality
+    @item = create_item(name)
+    @item.days_remaining = days_remaining
+    @item.quality = quality
   end
 
   def tick
-    if @name != "Aged Brie" and @name != "Backstage passes to a TAFKAL80ETC concert"
-      if @quality > 0
-        if @name != "Sulfuras, Hand of Ragnaros"
-          @quality = @quality - 1
-        end
-      end
+    @item.tick
+  end
+
+  def days_remaining
+    @item.days_remaining
+  end
+
+  def quality
+    @item.quality
+  end
+
+  private
+
+  def create_item(name)
+    case name
+    when "Aged Brie"
+      AgedBrie.new(name)
+    when "Backstage passes to a TAFKAL80ETC concert"
+      BackstagePass.new(name)
+    when "Sulfuras, Hand of Ragnaros"
+      Sulfur.new(name)
     else
-      if @quality < 50
-        @quality = @quality + 1
-        if @name == "Backstage passes to a TAFKAL80ETC concert"
-          if @days_remaining < 11
-            if @quality < 50
-              @quality = @quality + 1
-            end
-          end
-          if @days_remaining < 6
-            if @quality < 50
-              @quality = @quality + 1
-            end
-          end
-        end
-      end
-    end
-    if @name != "Sulfuras, Hand of Ragnaros"
-      @days_remaining = @days_remaining - 1
-    end
-    if @days_remaining < 0
-      if @name != "Aged Brie"
-        if @name != "Backstage passes to a TAFKAL80ETC concert"
-          if @quality > 0
-            if @name != "Sulfuras, Hand of Ragnaros"
-              @quality = @quality - 1
-            end
-          end
-        else
-          @quality = @quality - @quality
-        end
-      else
-        if @quality < 50
-          @quality = @quality + 1
-        end
-      end
+      Item.new(name)
     end
   end
 end
