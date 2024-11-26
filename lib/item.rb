@@ -16,11 +16,14 @@ class Item
   end
 
   def update_quality
-    if @quality > 1 && @days_remaining <= 0
+    if @quality > 1
       decrease_quality
-      decrease_quality
-    elsif @quality > 0
-      decrease_quality
+    end
+
+    if @days_remaining <= 0
+      if @quality > 1
+        decrease_quality
+      end
     end
   end
 

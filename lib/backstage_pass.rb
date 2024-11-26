@@ -4,16 +4,17 @@ require_relative 'item'
 
 class BackstagePass < Item
   def update_quality
-    super
-
-    if @days_remaining <= 5
+    if @days_remaining <= 0
+      @quality = 0
+    elsif @days_remaining <= 5
+      increase_quality
+      increase_quality
+      increase_quality
+    elsif @days_remaining <= 10
+      increase_quality
+      increase_quality
+    else
       increase_quality
     end
-
-    if @days_remaining <= 10
-      increase_quality
-    end
-
-    increase_quality
   end
 end

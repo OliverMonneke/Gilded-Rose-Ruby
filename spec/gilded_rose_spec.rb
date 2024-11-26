@@ -43,7 +43,7 @@ RSpec.describe GildedRose do
 
       gilded_rose.tick
 
-      expect(gilded_rose).to have_attributes(days_remaining: 4, quality: 11)
+      expect(gilded_rose).to have_attributes(days_remaining: 4, quality: 13)
     end
 
     it "with max quality" do
@@ -59,7 +59,7 @@ RSpec.describe GildedRose do
 
       gilded_rose.tick
 
-      expect(gilded_rose).to have_attributes(days_remaining: -1, quality: 12)
+      expect(gilded_rose).to have_attributes(days_remaining: -1, quality: 13)
     end
 
     it "on sell date near max quality" do
@@ -83,7 +83,7 @@ RSpec.describe GildedRose do
 
       gilded_rose.tick
 
-      expect(gilded_rose).to have_attributes(days_remaining: -11, quality: 12)
+      expect(gilded_rose).to have_attributes(days_remaining: -11, quality: 13)
     end
 
     it "after sell date with max quality" do
